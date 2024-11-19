@@ -12,14 +12,14 @@ function create(){
     docker network create --subnet=172.188.0.0/16 ambari_cluster_net
 
     echo "启动repo"
-    docker run -d --name ambari-repo  --network ambari_cluster_net --ip 172.188.0.2 -it  tungshuaishuai/ambari-repo:2.7.6.3
+    docker run -d --name ambari-repo  --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.2 -it  tungshuaishuai/ambari-repo:2.7.6.3
 
     echo "初始化脚本init-hosts.sh"
     sed -i s/node_num=.*/node_num=$node_num/g init-hosts.sh
 
 
     echo "创建ambari-server"
-    docker run -d --privileged --name amb-server   --network ambari_cluster_net --ip 172.188.0.3 -it  tungshuaishuai/ambari-node:2.7.6.3
+    docker run -d --privileged --name amb-server   --network ambari_cluster_net --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3 -p 8081:8080 -it  tungshuaishuai/ambari-node:2.7.6.3
     docker cp init-hosts.sh         amb-server:/root/
     docker cp init-ambari-server.sh amb-server:/root/
 
@@ -27,7 +27,7 @@ function create(){
     for (( i=1; i<=node_num; i++ ))
     do
         echo "创建ambari-agent$i"
-        docker run -d --privileged --name  amb$i   --network ambari_cluster_net --ip 172.188.0.$((3+$i)) -it  tungshuaishuai/ambari-node:2.7.6.3
+        docker run -d --privileged --name  amb$i   --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.$((3+$i)) -it  tungshuaishuai/ambari-node:2.7.6.3
         docker cp init-hosts.sh    amb$i:/root/
     done
 
