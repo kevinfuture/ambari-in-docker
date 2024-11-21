@@ -9,7 +9,7 @@ set node_num=2
 
 :create
     echo "create network..."
-    docker network create --subnet=172.188.0.0/16 ambari_cluster_net
+    route add -p 172.188.0.0 mask 255.255.0.0 192.168.8.147
 
     echo "start repo..."
     docker run -d --name ambari-repo  --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.2 -it  tungshuaishuai/ambari-repo:2.7.6.3
