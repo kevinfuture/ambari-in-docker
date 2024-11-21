@@ -1,4 +1,5 @@
 @echo off
+chcp 65001
 set /p input=Please enter your selection 
 
 docker pull tungshuaishuai/ambari-repo:2.7.6.3
@@ -15,6 +16,7 @@ set node_num=2
 
     echo "初始化脚本init-hosts.sh"
     sed -i s/node_num=.*/node_num=$node_num/g init-hosts.sh
+    replact "node_num=.*" node_num=$node_num init-hosts.sh
 
 
     echo "创建ambari-server"
