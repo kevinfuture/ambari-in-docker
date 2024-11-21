@@ -28,7 +28,7 @@ if errorlevel 1 (
 endlocal
 
 
-set node_num=3
+set node_num=2
 
 :create
     echo "create network..."
