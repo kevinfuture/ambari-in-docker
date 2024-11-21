@@ -15,7 +15,6 @@ set node_num=2
     docker run -d --name ambari-repo  --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.2 -it  tungshuaishuai/ambari-repo:2.7.6.3
 
     echo "初始化脚本init-hosts.sh"
-    sed -i s/node_num=.*/node_num=$node_num/g init-hosts.sh
     replact "node_num=.*" node_num=$node_num init-hosts.sh
 
 
