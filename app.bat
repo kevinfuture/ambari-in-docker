@@ -47,9 +47,9 @@ set node_num=3
     docker cp init-ambari-server.sh amb-server:/root/
 
     for /L %%i in (0, 1, %node_num%) do (
-        docker run -d --privileged --name  amb%%i% --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3%%i% -it  tungshuaishuai/ambari-node:2.7.6.3
+        echo create ambari-agent%%i
+        docker run -d --privileged --name  amb%%i --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3%%i -it  tungshuaishuai/ambari-node:2.7.6.3
         docker cp init-hosts.sh    amb$i:/root/
-        echo "create ambari-agent%%i%"
     )
 
 
@@ -58,9 +58,9 @@ set node_num=3
     docker exec -it amb-server wget http://repo.hdp.link/ambari/centos7/2.7.6.3-2/ambari.repo -P /etc/yum.repos.d/
     docker exec -it amb-server wget http://repo.hdp.link/HDP/centos8/3.3.1.0-002/hdp.repo -P /etc/yum.repos.d/
     for /L %%i in (0, 1, %node_num%) do (
-        docker exec -it amb%%i%   bash /root/init-hosts.sh
-        docker exec -it amb%%i% wget http://repo.hdp.link/ambari/centos7/2.7.6.3-2/ambari.repo -P /etc/yum.repos.d/
-        docker exec -it amb%%i% wget http://repo.hdp.link/HDP/centos8/3.3.1.0-002/hdp.repo -P /etc/yum.repos.d/
+        docker exec -it amb%%i   bash /root/init-hosts.sh
+        docker exec -it amb%%i wget http://repo.hdp.link/ambari/centos7/2.7.6.3-2/ambari.repo -P /etc/yum.repos.d/
+        docker exec -it amb%%i wget http://repo.hdp.link/HDP/centos8/3.3.1.0-002/hdp.repo -P /etc/yum.repos.d/
     )
 
 
