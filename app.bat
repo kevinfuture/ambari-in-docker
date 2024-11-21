@@ -38,7 +38,7 @@ set node_num=3
     docker run -d --name ambari-repo  --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.2 -it  tungshuaishuai/ambari-repo:2.7.6.3
 
     echo "init init-hosts.sh..."
-    replace "node_num=2" "node_num=%node_num%" init-hosts.sh
+    replace node_num=2 node_num=%node_num% init-hosts.sh
 
 
     echo "create ambari-server..."
@@ -49,7 +49,7 @@ set node_num=3
     for /L %%i in (0, 1, %node_num%) do (
         echo create ambari-agent%%i
         docker run -d --privileged --name  amb%%i --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3%%i -it  tungshuaishuai/ambari-node:2.7.6.3
-        docker cp init-hosts.sh    amb$i:/root/
+        docker cp init-hosts.sh    amb%%i:/root/
     )
 
 
