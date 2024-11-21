@@ -57,7 +57,7 @@ set node_num=2
     docker exec -it amb-server bash /root/init-hosts.sh
     docker exec -it amb-server wget http://repo.hdp.link/ambari/centos7/2.7.6.3-2/ambari.repo -P /etc/yum.repos.d/
     docker exec -it amb-server wget http://repo.hdp.link/HDP/centos8/3.3.1.0-002/hdp.repo -P /etc/yum.repos.d/
-    for %%i in (0, 1, %node_num%) do (
+    for /L %%i in (0, 1, %node_num%) do (
         docker exec -it amb%%i%   bash /root/init-hosts.sh
         docker exec -it amb%%i% wget http://repo.hdp.link/ambari/centos7/2.7.6.3-2/ambari.repo -P /etc/yum.repos.d/
         docker exec -it amb%%i% wget http://repo.hdp.link/HDP/centos8/3.3.1.0-002/hdp.repo -P /etc/yum.repos.d/
