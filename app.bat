@@ -4,7 +4,7 @@ set /p input=Please enter your selection
 docker pull tungshuaishuai/ambari-repo:2.7.6.3
 docker pull tungshuaishuai/ambari-node:2.7.6.3
 
-node_num=2
+set node_num=2
 
 :create
     echo "创建网络"
@@ -18,7 +18,7 @@ node_num=2
 
 
     echo "创建ambari-server"
-    docker run -d --privileged --name amb-server   --network ambari_cluster_net --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3 -p 8081:8080 -it  tungshuaishuai/ambari-node:2.7.6.3
+    docker run -d --privileged --name amb-server   --network ambari_cluster_net --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3 -p 8181:8080 -it  tungshuaishuai/ambari-node:2.7.6.3
     docker cp init-hosts.sh         amb-server:/root/
     docker cp init-ambari-server.sh amb-server:/root/
 
