@@ -28,7 +28,7 @@ if errorlevel 1 (
 endlocal
 
 
-set node_num=2
+set node_num=3
 
 :create
     echo "create network..."
@@ -47,9 +47,9 @@ set node_num=2
     docker cp init-ambari-server.sh amb-server:/root/
 
     for /L %%i in (0, 1, %node_num%) do (
-        echo create ambari-agent%%i%
-        docker run -d --privileged --name  amb%%i%   --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3%%i% -it  tungshuaishuai/ambari-node:2.7.6.3
+        docker run -d --privileged --name  amb%%i% --network ambari_cluster_net  --add-host kaq.kj.com:127.0.0.1 --ip 172.188.0.3%%i% -it  tungshuaishuai/ambari-node:2.7.6.3
         docker cp init-hosts.sh    amb$i:/root/
+        echo "create ambari-agent%%i%"
     )
 
 

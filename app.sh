@@ -5,7 +5,7 @@ docker pull tungshuaishuai/ambari-repo:2.7.6.3
 docker pull tungshuaishuai/ambari-node:2.7.6.3
 
 
-node_num=2
+node_num=3
 
 function create(){
     echo "创建网络"
